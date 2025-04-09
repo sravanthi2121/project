@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Owner Dashboard</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script defer>
+    document.addEventListener("DOMContentLoaded", () => {
+      const fileList = document.getElementById("fileList");
+      const homeContent = document.getElementById("homeInfo");
+
+      const homeBtn = document.getElementById("homeBtn");
+      const viewFileBtn = document.getElementById("viewFileBtn");
+      const deleteFileBtn = document.getElementById("deleteFileBtn");
+
+      homeContent.style.display = "block";
+      fileList.innerHTML = "";
+
+      homeBtn.addEventListener("click", () => {
+        fileList.innerHTML = "";
+        homeContent.style.display = "block";
+      });
+
+      viewFileBtn.addEventListener("click", () => {
+        homeContent.style.display = "none";
+        showFilesForDownload();
+      });
+
+      deleteFileBtn.addEventListener("click", () => {
+        homeContent.style.display = "none";
+        showFilesForDelete();
+      });
+    });
+
+    function showFilesForDownload() {
+      const fileList = document.getElementById("fileList");
+      fileList.innerHTML = "";
+      const files = JSON.parse(localStorage.getItem("uploadedFiles")) || [];
+
+      if (files.length === 0) {
+        fileList.innerHTML = "<li>No files uploaded yet.</li>";
+        return;
+      }
+
+      files.forEach((file, index) => {
+        const listItem = document.createElement("li");
+        listItem.innerHTML = `
+          <strong>${file.name}</strong><br>
+          <input type="password" placeholder="Enter Master Key" id="key-${index}" />
+          <button onclick="downloadFile(${index})">Download</button>
+          <span id="status-${index}" style="margin-left: 10px;"></span>
+        `;
+        fileList.appendChild(listItem);
+      });
+    }
+
+    function downloadFile(index) {
+      const files = JSON.parse(localStorage.getItem("uploadedFiles")) || [];
+      const input = document.getElementById(`key-${index}`);
+      const status = document.getElementById(`status-${index}`);
+      const enteredKey = input.value.trim();
+
+      if (enteredKey === files[index].masterKey) {
+        const blob = new Blob([files[index].content], { type: "text/plain" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = files[index].name;
+        a.click();
+        URL.revokeObjectURL(url);
+
+        status.textContent = "✅ Downloaded";
+        status.style.color = "green";
+      } else {
+        status.textContent = "❌ Wrong Key";
+        status.style.color = "red";
+      }
+    }
+
+    function showFilesForDelete() {
+      const fileList = document.getElementById("fileList");
+      fileList.innerHTML = "";
+      const files = JSON.parse(localStorage.getItem("uploadedFiles")) || [];
+
+      if (files.length === 0) {
+        fileList.innerHTML = "<li>No files to delete.</li>";
+        return;
+      }
+
+      files.forEach((file, index) => {
+        const listItem = document.createElement("li");
+        listItem.innerHTML = `
+          <strong>${file.name}</strong>
+          <button onclick="deleteFile(${index})" style="margin-left: 10px; background-color: red; color: white;">Delete</button>
+        `;
+        fileList.appendChild(listItem);
+      });
+    }
+
+    function deleteFile(index) {
+      let files = JSON.parse(localStorage.getItem("uploadedFiles")) || [];
+      const fileName = files[index].name;
+      files.splice(index, 1);
+      localStorage.setItem("uploadedFiles", JSON.stringify(files));
+      alert(`"${fileName}" has been deleted.`);
+      showFilesForDelete(); // Refresh list after deletion
+    }
+  </script>
+</head>
+<body>
+  <header class="header">
+    <h1 class="title">Welcome, Owner</h1>
+    <nav class="nav-bar">
+      <ul>
+        <li><a href="#" id="homeBtn" class="active">Home</a></li>
+        <li><a href="#" id="viewFileBtn">View Files</a></li>
+        <li><a href="#" id="deleteFileBtn">Delete Files</a></li>
+        <li><a href="upload.html">Upload Files</a></li>
+        <li><a href="index.html">Logout</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="main-content">
+    <div id="homeInfo" class="view-files-section">
+      <h2>📁 Owner Dashboard Overview</h2>
+      <p>Welcome to the Cloud Secure Owner Panel.</p>
+      <ul>
+        <li>🔐 Upload files with a unique master key</li>
+        <li>📥 View and download files securely</li>
+        <li>🗑️ Delete unwanted or outdated files</li>
+        <li>👤 Manage your uploads easily from this dashboard</li>
+      </ul>
+    </div>
+
+    <div class="view-files-section">
+      <ul id="fileList"></ul>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2025 Cloud Secure</p>
+  </footer>
+</body>
+</html>

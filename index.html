@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <title>Cloud Secure</title>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+                  url('https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=1600&q=80');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: #fff;
+    }
+
+    header, footer {
+      background: rgba(0, 0, 0, 0.8);
+      padding: 1rem 0;
+      text-align: center;
+    }
+
+    .title {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .nav-bar ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      padding: 0;
+      margin: 0;
+    }
+
+    .nav-bar a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    .nav-bar a:hover {
+      color: #60a5fa;
+    }
+
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: rgba(0, 0, 0, 0.95);
+      padding: 0.5rem;
+      top: 100%;
+      left: 0;
+      min-width: 120px;
+      z-index: 1;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .main-content section {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 2rem;
+      margin: 2rem auto;
+      max-width: 1000px;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      animation: fadeInUp 0.8s ease;
+    }
+
+    section h2 {
+      color: #fff;
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    section p, section ul li {
+      color: #f1f5f9;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+
+    li {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 8px;
+      padding: 1rem;
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    li:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    .hero-section {
+      text-align: center;
+      padding-top: 2rem;
+    }
+
+    .cta-buttons {
+      margin-top: 1.5rem;
+    }
+
+    .cta-button {
+      background: #3b82f6;
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 6px;
+      margin: 0 0.5rem;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+
+    .cta-button.secondary {
+      background: #06b6d4;
+    }
+
+    .cta-button:hover {
+      background: #2563eb;
+    }
+
+    footer {
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .nav-bar ul {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      ul {
+        grid-template-columns: 1fr;
+      }
+
+      .title {
+        font-size: 2rem;
+      }
+    }
+
+    @keyframes fadeInUp {
+      0% {
+        transform: translateY(40px);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <h1 class="title">Welcome to Cloud Secure</h1>
+    <nav class="nav-bar">
+      <ul>
+        <li><a href="#home" class="active">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#contact">Contact</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="main-content" id="home">
+    <section class="hero-section">
+      <h2>Secure Your Data in the Cloud</h2>
+      <p>Dual-access cloud-based storage system for users and administrators with upload, download, and access control.</p>
+      <div class="cta-buttons">
+        <a href="register.html" class="cta-button">Get Started</a>
+        <a href="login.html" class="cta-button secondary">Login</a>
+      </div>
+    </section>
+
+    <section class="about-section" id="about">
+      <h2>About Us</h2>
+      <p>Cloud Secure is a modern, user-friendly cloud storage platform designed to keep your data safe and accessible. With dual-access control, both users and administrators have secure ways to manage and share files. Our mission is to empower individuals and organizations to store, manage, and protect their digital assets with confidence.</p>
+    </section>
+
+    <section class="services-section" id="services">
+      <h2>Our Services</h2>
+      <ul>
+        <li>🔐 Secure File Upload & Download</li>
+        <li>🧑‍💼 Dual-access System for Owners and Admins</li>
+        <li>🔑 Master Key Based File Sharing</li>
+        <li>🗃️ Easy File Management (Upload, View, Delete)</li>
+        <li>📊 Real-Time Dashboard Overview</li>
+      </ul>
+    </section>
+
+    <section class="features-section" id="features">
+      <h2>Key Features</h2>
+      <ul>
+        <li>📁 Fast and Secure File Uploads</li>
+        <li>🔒 Encrypted Storage for Maximum Privacy</li>
+        <li>🛡️ Access Control with Master Key Authentication</li>
+        <li>📤 One-click File Sharing</li>
+        <li>📱 Responsive Dashboard for All Devices</li>
+      </ul>
+    </section>
+
+    <section class="benefits-section" id="benefits">
+      <h2>Why Choose Cloud Secure?</h2>
+      <ul>
+        <li>✅ Easy-to-use interface for users and admins</li>
+        <li>✅ Reliable cloud infrastructure</li>
+        <li>✅ Real-time monitoring and file tracking</li>
+        <li>✅ Hassle-free file management from anywhere</li>
+        <li>✅ Continuous updates and support</li>
+      </ul>
+    </section>
+
+    <section class="contact-section" id="contact">
+      <h2>Contact</h2>
+      <ul>
+        <li> 📞 +91 1234567890</li>
+        <li> 📩 Cloudsecure@gmail.com</li>
+        <li> 🔗 WWW.Cloudbsed secure.com</li>
+        <li> ⓕ  Facebook -@Cloudsecure </li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2025 Cloud Secure. All rights reserved.</p>
+  </footer>
+</body>
+</html>

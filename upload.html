@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Upload Files</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script defer>
+    document.addEventListener("DOMContentLoaded", () => {
+      const uploadForm = document.getElementById("uploadForm");
+      const uploadMessage = document.getElementById("uploadMessage");
+
+      uploadForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const fileInput = document.getElementById("file");
+        const file = fileInput.files[0];
+
+        if (!file) {
+          uploadMessage.textContent = "Please select a file.";
+          return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          const content = e.target.result;
+          const masterKey = Math.random().toString(36).substring(2, 8); // short key
+
+          const newFile = {
+            name: file.name,
+            content: content,
+            masterKey: masterKey
+          };
+
+          let files = JSON.parse(localStorage.getItem("uploadedFiles")) || [];
+          files.push(newFile);
+          localStorage.setItem("uploadedFiles", JSON.stringify(files));
+
+          uploadMessage.innerHTML = `✅ <strong>${file.name}</strong> uploaded successfully!<br>Master Key: <code>${masterKey}</code>`;
+          uploadForm.reset();
+        };
+
+        reader.readAsText(file);
+      });
+    });
+  </script>
+</head>
+<body>
+  <h1>Upload File</h1>
+  <form id="uploadForm">
+    <input type="file" id="file" required />
+    <button type="submit">Upload</button>
+  </form>
+  <p id="uploadMessage"></p>
+</body>
+</html>

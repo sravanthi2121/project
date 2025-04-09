@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <header>
+            <h1>Welcome to Your Dashboard</h1>
+            <button id="logoutBtn" class="btn">Logout</button>
+        </header>
+        <main>
+            <div class="user-info">
+                <h2>Your Profile</h2>
+                <div id="userDetails"></div>
+            </div>
+        </main>
+    </div>
+    <script>
+        // Check if user is logged in
+        if (!localStorage.getItem('loginSuccess')) {
+            window.location.href = 'login.html';
+        }
+
+        // Display user information
+        const userDataString = localStorage.getItem('userData');
+        if (userDataString) {
+            const userData = JSON.parse(userDataString);
+            const userDetails = document.getElementById('userDetails');
+            userDetails.innerHTML = `
+                <p><strong>User ID:</strong> ${userData.userid}</p>
+                <p><strong>Email:</strong> ${userData.email}</p>
+                <p><strong>Mobile:</strong> ${userData.mobile}</p>
+                <p><strong>Pincode:</strong> ${userData.pincode}</p>
+            `;
+        }
+
+        // Handle logout
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            localStorage.removeItem('loginSuccess');
+            window.location.href = 'login.html';
+        });
+    </script>
+</body>
+</html>
